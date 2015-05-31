@@ -1,0 +1,18 @@
+language: python
+services:
+    - postgresql
+python:
+    - "2.7"
+addons:
+      postgresql: "9.2"
+install:
+    - pip install -q django==1.8
+    - pip install -q fabric
+    - python setup.py -q install
+before_script:
+    - psql -c 'create database travis_ci_test;' -U postgres
+    - cd farinha
+    - python manage.py migrate --noinput
+    - python manage.py collectstatic --noinput
+script:
+    - python manage.py test
