@@ -1,0 +1,3 @@
+#!/bin/bash
+#: AUTHOR       : "Willian Paixao <willian@ufpa.br>"
+#: VERSION      : "0.1"
