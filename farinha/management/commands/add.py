@@ -1,5 +1,7 @@
 """Add an empty snippet."""
 
+import os
+
 from django.core.management.base import BaseCommand, CommandError
 
 from farinha.models import Snippet
@@ -24,7 +26,13 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         """Iterate throw the list to create the snippets."""
-        if args:
+        if len(args) == 1:
+            if os.path.isfile(args[0]):
+                with open(args[0], 'r') as f:
+                    s = Snippet(title=args[0])
+                    s.body = f.read()
+                    s.save()
+        elif args > 1:
             s = Snippet(title=args[0])
             if options['header']:
                 s.header = options['header'].read()
