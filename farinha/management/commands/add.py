@@ -32,6 +32,15 @@ class Command(BaseCommand):
                     s = Snippet(title=args[0])
                     s.body = f.read()
                     s.save()
+            else:
+                s = Snippet(title=args[0])
+                if options['header']:
+                    s.header = options['header'].read()
+                if options['body']:
+                    s.body = options['body'].read()
+                if options['footer']:
+                    s.footer = options['footer'].read()
+                s.save()
         elif args > 1:
             s = Snippet(title=args[0])
             if options['header']:
